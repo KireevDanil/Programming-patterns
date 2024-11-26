@@ -1,16 +1,49 @@
 class Student(
-    var id: Int,
-    var lastName: String,
-    var firstName: String,
-    var middleName: String?,
-    var phone: String? = null,
-    var telegram: String? = null,
-    var email: String? = null,
-    var git: String? = null
+    val id: Int,
+    val lastName: String,
+    val firstName: String,
+    val middleName: String?
 ) {
-    init {
-        // Проверяем обязательные поля
-        require(lastName.isNotBlank() && firstName.isNotBlank()) { "Фамилия и имя не могут быть пустыми" }
+    var phone: String? = null
+    var telegram: String? = null
+    var email: String? = null
+    var git: String? = null
+    // Вторичный конструктор для добавления телефона
+    constructor(
+        id: Int,
+        lastName: String,
+        firstName: String,
+        middleName: String?,
+        phone: String
+    ) : this(id, lastName, firstName, middleName) {
+        this.phone = phone
+    }
+   //Вторичный конструктор для дбавления телефона и телеграмма
+    constructor(
+        id: Int,
+        lastName: String,
+        firstName: String,
+        middleName: String?,
+        phone: String,
+        telegram: String
+    ) : this(id, lastName, firstName, middleName, phone) {
+        this.telegram = telegram
+    }
+    // Вторичный конструктор для всех полей
+    constructor(
+        id: Int,
+        lastName: String,
+        firstName: String,
+        middleName: String?,
+        phone: String?,
+        telegram: String?,
+        email: String?,
+        git: String?
+    ) : this(id, lastName, firstName, middleName) {
+        this.phone = phone
+        this.telegram = telegram
+        this.email = email
+        this.git = git
     }
 
     fun printInfo() {
