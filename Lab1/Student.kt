@@ -50,4 +50,16 @@ class Student(
     fun setGit(value: String?) {
         git = value
     }
+    fun printInfo() {
+        println(
+            """
+            ID: $id
+            ФИО: $lastName $firstName ${middleName ?: ""}
+            Телефон: ${phone ?: "не указан"}
+            Telegram: ${telegram ?: "не указан"}
+            Почта: ${email ?: "не указана"}
+            Git: ${git ?: "не указан"}
+            """.trimIndent()
+        )
+    }
 }
