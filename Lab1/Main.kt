@@ -11,7 +11,10 @@ fun main() {
             git = "github.com/kireev"
         )
         student1.printInfo()
+        student1.validate()
     }catch (e: IllegalArgumentException){
+        println("Ошибка: ${e.message}")
+    }catch (e: IllegalStateException) {
         println("Ошибка: ${e.message}")
     }
     try {
@@ -23,6 +26,7 @@ fun main() {
             phone = "89604567101"
         )
         student2.printInfo()
+        student2.validate()
     }catch (e: IllegalArgumentException){
         println("Ошибка: ${e.message}")
     }
@@ -37,6 +41,19 @@ fun main() {
             telegram = "@sidorov"
         )
         student3.printInfo()
+        student3.validate()
+    }catch (e: IllegalArgumentException){
+        println("Ошибка: ${e.message}")
+    }
+    try {
+        val student4 = Student(
+            id = 4,
+            lastName = "Иванов",
+            firstName = "Аркадий",
+            middleName = "Пупкович"
+        )
+        student4.printInfo()
+        student4.validate()
     }catch (e: IllegalArgumentException){
         println("Ошибка: ${e.message}")
     }
