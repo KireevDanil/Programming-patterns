@@ -72,6 +72,18 @@ class Student(
         this.email = email
         this.git = git
     }
+    fun setContacts(
+        phone: String? = null,
+        telegram: String? = null,
+        email: String? = null,
+        git: String? = null
+    ) {
+        if (phone != null) this.phone = phone
+        if (telegram != null) this.telegram = telegram
+        if (email != null) this.email = email
+        if (git != null) this.git = git
+    }
+    // Метод для вывода информации о студенте
     fun printInfo() {
         println(
             """
@@ -105,6 +117,7 @@ class Student(
     }
 
     companion object {
+        // Метод для проверки корректности номера телефона
         fun isPhoneNumberValid(phone: String): Boolean {
             val regex = Regex("^\\+7\\d{10}$")
             return regex.matches(phone)
