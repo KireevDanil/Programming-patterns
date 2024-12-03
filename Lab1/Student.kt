@@ -7,7 +7,7 @@ class Student(
     var telegram: String? = null
         set(value) {
             if (value != null && !isTelegramValid(value)) {
-                throw IllegalArgumentException("Студент с ID $id: неверный формат Telegram-логина: $value")
+                throw IllegalArgumentException("У студент с ID $id неверный формат Telegram: $value")
             }
             field = value
         }
@@ -15,7 +15,7 @@ class Student(
     var email: String? = null
         set(value) {
             if (value != null && !isEmailValid(value)) {
-                throw IllegalArgumentException("Студент с ID $id: неверный формат email: $value")
+                throw IllegalArgumentException("У студента с ID $id неверный формат email: $value")
             }
             field = value
         }
@@ -23,7 +23,7 @@ class Student(
     var git: String? = null
         set(value) {
             if (value != null && !isGitUrlValid(value)) {
-                throw IllegalArgumentException("Студент с ID $id: неверный формат Git-URL: $value")
+                throw IllegalArgumentException("У студент с ID $id неверный формат Git: $value")
             }
             field = value
         }
@@ -72,7 +72,6 @@ class Student(
         this.email = email
         this.git = git
     }
-    // Метод для вывода информации о студенте
     fun printInfo() {
         println(
             """
@@ -85,9 +84,27 @@ class Student(
             """.trimIndent()
         )
     }
+    // Метод validate: проверяет наличие Git и хотя бы одного контакта
+    fun validate() {
+        if (!hasGit()) {
+            println("У студента с ID $id отсутствует ссылка на Git.")
+        }
+        if (!hasAnyContact()) {
+            println("У студента с ID $id должен быть хотя бы один контактный способ связи.")
+        }
+    }
+
+    // Проверка наличия Git
+    private fun hasGit(): Boolean {
+        return !git.isNullOrBlank()
+    }
+
+    // Проверка наличия хотя бы одного контакта
+    private fun hasAnyContact(): Boolean {
+        return !phone.isNullOrBlank() || !telegram.isNullOrBlank() || !email.isNullOrBlank()
+    }
 
     companion object {
-        // Метод для проверки корректности номера телефона
         fun isPhoneNumberValid(phone: String): Boolean {
             val regex = Regex("^\\+7\\d{10}$")
             return regex.matches(phone)
