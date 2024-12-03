@@ -14,8 +14,6 @@ fun main() {
         student1.validate()
     }catch (e: IllegalArgumentException){
         println("Ошибка: ${e.message}")
-    }catch (e: IllegalStateException) {
-        println("Ошибка: ${e.message}")
     }
     try {
         val student2 = Student(
@@ -53,7 +51,10 @@ fun main() {
             middleName = "Пупкович"
         )
         student4.printInfo()
+        student4.setContacts(phone = "+71234567890", email = "ivanov@gmail.com")
         student4.validate()
+        println("Добавили телефон и почту")
+        student4.printInfo()
     }catch (e: IllegalArgumentException){
         println("Ошибка: ${e.message}")
     }
