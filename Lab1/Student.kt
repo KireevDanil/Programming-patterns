@@ -4,11 +4,17 @@ class Student(
     val firstName: String,
     val middleName: String?
 ) {
-    var phone: String? = null
     var telegram: String? = null
     var email: String? = null
     var git: String? = null
-    // Вторичный конструктор для добавления телефона
+    var phone: String? = null
+        set(value) {
+            if (value != null && !isPhoneNumberValid(value)) {
+                throw IllegalArgumentException("У студента с id=${id} неверный формат номера телефона: $value")
+            }
+            field = value
+        }
+
     constructor(
         id: Int,
         lastName: String,
@@ -18,7 +24,6 @@ class Student(
     ) : this(id, lastName, firstName, middleName) {
         this.phone = phone
     }
-   //Вторичный конструктор для дбавления телефона и телеграмма
     constructor(
         id: Int,
         lastName: String,
@@ -29,7 +34,6 @@ class Student(
     ) : this(id, lastName, firstName, middleName, phone) {
         this.telegram = telegram
     }
-    // Вторичный конструктор для всех полей
     constructor(
         id: Int,
         lastName: String,
@@ -45,7 +49,6 @@ class Student(
         this.email = email
         this.git = git
     }
-
     fun printInfo() {
         println(
             """
@@ -57,5 +60,12 @@ class Student(
             Git: ${git ?: "не указан"}
             """.trimIndent()
         )
+    }
+
+    companion object {
+        fun isPhoneNumberValid(phone: String): Boolean {
+            val regex = Regex("^\\+7\\d{10}$")
+            return regex.matches(phone)
+        }
     }
 }
