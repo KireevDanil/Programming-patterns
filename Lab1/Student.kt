@@ -5,8 +5,28 @@ class Student(
     val middleName: String?
 ) {
     var telegram: String? = null
+        set(value) {
+            if (value != null && !isTelegramValid(value)) {
+                throw IllegalArgumentException("Студент с ID $id: неверный формат Telegram-логина: $value")
+            }
+            field = value
+        }
+
     var email: String? = null
+        set(value) {
+            if (value != null && !isEmailValid(value)) {
+                throw IllegalArgumentException("Студент с ID $id: неверный формат email: $value")
+            }
+            field = value
+        }
+
     var git: String? = null
+        set(value) {
+            if (value != null && !isGitUrlValid(value)) {
+                throw IllegalArgumentException("Студент с ID $id: неверный формат Git-URL: $value")
+            }
+            field = value
+        }
     var phone: String? = null
         set(value) {
             if (value != null && !isPhoneNumberValid(value)) {
@@ -15,6 +35,7 @@ class Student(
             field = value
         }
 
+    // Вторичный конструктор с телефоном
     constructor(
         id: Int,
         lastName: String,
@@ -22,8 +43,9 @@ class Student(
         middleName: String?,
         phone: String
     ) : this(id, lastName, firstName, middleName) {
-        this.phone = phone
+        this.phone = phone // Проверка номера через сеттер
     }
+    //Вторичный конструктор для дбавления телефона и телеграмма
     constructor(
         id: Int,
         lastName: String,
@@ -34,6 +56,7 @@ class Student(
     ) : this(id, lastName, firstName, middleName, phone) {
         this.telegram = telegram
     }
+    // Вторичный конструктор для всех полей
     constructor(
         id: Int,
         lastName: String,
@@ -49,6 +72,7 @@ class Student(
         this.email = email
         this.git = git
     }
+    // Метод для вывода информации о студенте
     fun printInfo() {
         println(
             """
@@ -63,9 +87,24 @@ class Student(
     }
 
     companion object {
+        // Метод для проверки корректности номера телефона
         fun isPhoneNumberValid(phone: String): Boolean {
             val regex = Regex("^\\+7\\d{10}$")
             return regex.matches(phone)
+        }
+        fun isTelegramValid(telegram: String): Boolean {
+            val regex = Regex("^@[a-zA-Z0-9_]{5,32}$")
+            return regex.matches(telegram)
+        }
+
+        fun isEmailValid(email: String): Boolean {
+            val regex = Regex("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$")
+            return regex.matches(email)
+        }
+
+        fun isGitUrlValid(git: String): Boolean {
+            val regex = Regex("^github\\.com/[a-zA-Z0-9_-]+/?$")
+            return regex.matches(git)
         }
     }
 }
