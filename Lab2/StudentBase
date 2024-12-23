@@ -1,0 +1,10 @@
+open class StudentBase(
+    val ID: Int,
+    val surnameInitials: String,
+    val git: String,
+    val contact: String
+) {
+    override fun toString(): String {
+        return "ID: $ID, ФИО: $surnameInitials, Git: $git, Контакт: $contact"
+    }
+}
