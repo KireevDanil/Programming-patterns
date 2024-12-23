@@ -1,24 +1,10 @@
 fun main() {
-    val validString = "Киреев Данил Максимович|21|github.com/kireev|+79186666666"
-    val invalidString = "Иванов Иван Иванович|21|github.com/kireev|+796086634122"
+    val student = Student(1, "Иванов Иван Иванович", "github.com/ivan", "+79181231212")
+    println(student) 
 
-    try {
-        val student1 = Student(validString)
-        println("Студент успешно создан $student1")
-        println("Инфа: ${student1.getInfo()}")
-    } catch (e: Exception) {
-        println("Ошибка: ${e.message}")
-    }
+    val shortStudent = Student_short(student)
+    println(shortStudent) 
 
-    try {
-        val student2 = Student(invalidString)
-        println("Студент успешно создан: $student2")
-        println("Info: ${student2.getInfo()}")
-    } catch (e: ParsingException) {
-        println("Ошибка парсинга: ${e.message}")
-    } catch (e: ValidationException) {
-        println("Ошибка валидации: ${e.message}")
-    } catch (e: Exception) {
-        println("Ошибка: ${e.message}")
-    }
+    val shortStudent2 = Student_short(2, "Петров П.В.|github.com/petr|+79603213485")
+    println(shortStudent2) 
 }
