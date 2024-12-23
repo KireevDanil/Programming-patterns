@@ -22,6 +22,9 @@ class Student(ID: Int,
     }
 
     fun getPhoneInfo(): String = contact
+    fun getShortInfo(): String {
+        return "ФИО: $surnameInitials, Контакт: $contact"
+    }
     companion object {
         private fun formatName(name: String): String {
             val parts = name.split(" ")
@@ -52,6 +55,19 @@ class Student(ID: Int,
             }
 
             return students.toTypedArray()
+        }
+
+        fun write_to_txt(filePath: String, students: List<Student>) {
+            val file = File(filePath)
+            try {
+                file.printWriter().use { out ->
+                    students.forEach { student ->
+                        out.println("${student.ID},${student.surnameInitials},${student.git},${student.contact}")
+                    }
+                }
+            } catch (e: IOException) {
+                throw IOException("Ошибка при записи в файл: ${e.message}")
+            }
         }
 
     }
