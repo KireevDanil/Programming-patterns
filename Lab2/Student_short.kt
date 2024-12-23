@@ -1,27 +1,22 @@
-class Student_short {
-    val ID: Int
-    val surnameInitials: String
-    val git: String
-    val contact: String
+class Student_short:StudentBase {
+    constructor(student: Student) : super(
+        ID = student.ID,
+        surnameInitials = student.surnameInitials,
+        git = student.git,
+        contact = student.contact
+    )
 
-    constructor(student: Student) {
-        this.ID = student.ID
-        this.surnameInitials = student.getShortName()
-        this.git = student.fetchGit()
-        this.contact = student.getPhoneInfo()
-    }
+    constructor(ID: Int, data: String) : super(
+        ID = ID,
+        surnameInitials = parseData(data, 0),
+        git = parseData(data, 1),
+        contact = parseData(data, 2)
+    )
 
-    constructor(ID: Int, data: String) {
-        this.ID = ID
-
-        val parts = data.split("|").map { it.trim() }
-        if (parts.size < 3) throw ParsingException("Ошибка парсинга строки: недостаточно данных")
-        this.surnameInitials = parts[0]
-        this.git = parts[1]
-        this.contact = parts[2]
-    }
-
-    override fun toString(): String {
-        return "ID: $ID, ФИО: $surnameInitials, Git: $git, Контакт: $contact"
+    companion object {
+        private fun parseData(data: String, index: Int): String {
+            val parts = data.split("|").map { it.trim() }
+            return parts.getOrNull(index) ?: throw ParsingException("Ошибка парсинга данных")
+        }
     }
 }
