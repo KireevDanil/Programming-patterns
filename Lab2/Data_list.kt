@@ -3,7 +3,7 @@ abstract class Data_list<T : Comparable<T>>(protected val elements: List<T>) {
     init {
         elements.sorted()
     }
-    
+
     // Выделить элемент по номеру
     fun select(number: Int) {
         require(number in elements.indices) { "Индекс выходит за пределы списка" }
@@ -16,15 +16,25 @@ abstract class Data_list<T : Comparable<T>>(protected val elements: List<T>) {
     // Получить массив наименований атрибутов, кроме ID
     abstract fun get_names(): List<String>
 
-    // Получить объект класса Data_table
-    abstract fun get_data(): Data_table<Any>
+    fun get_data(): Data_table<Any> {
+        val tableData = elements.mapIndexed { index, element ->
+            listOf(index + 1) + extractAttributes(element).toList()
+        }
+        return Data_table.create(tableData)
+    }
 
+    // Шаблонный метод: извлечение атрибутов объекта
+    protected abstract fun extractAttributes(element: T): Array<Any>
+
+    // Получение элемента по индексу (дополнительный метод)
     fun getElement(index: Int): T {
         require(index in elements.indices) { "Индекс выходит за пределы списка" }
         return elements[index]
     }
 
+    // Получение всех элементов
     fun toList(): List<T> = elements.toList()
 
+    // Получение размера списка
     fun getSize(): Int = elements.size
 }
