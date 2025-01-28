@@ -4,7 +4,8 @@ fun main() {
         val students = listOf(
             Student_short(1, "Иванов|https://github.com/ivanov/Patterns|+7-123-456-7890"),
             Student_short(2, "Петров|https://github.com/petrov/Patterns|+7-987-654-3210"),
-            Student_short(3, "Сидоров|https://github.com/sidorov/Patterns|+7-456-789-0123")
+            Student_short(3, "Сидоров|https://github.com/sidorov/Patterns|+7-456-789-0123"),
+            Student_short(4, "Андреев | https://github.com/andreev | +7-918-789-0000")
         )
         val studentList = Data_list_student_short(students)
         println("Названия столбцов: ${studentList.get_names()}")
